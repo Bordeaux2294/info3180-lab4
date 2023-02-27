@@ -14,11 +14,12 @@ class UserProfile(db.Model):
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(128))
 
-    def __init__(self, first_name, last_name, username, password):
+    def __init__(self,id, first_name, last_name, username, password):
+        self.id = id
         self.first_name = first_name
         self.last_name = last_name
         self.username = username
-        self.password = generate_password_hash(password, method='md5')
+        self.password = generate_password_hash(password, method='pbkdf2:sha256')
 
     def is_authenticated(self):
         return True
